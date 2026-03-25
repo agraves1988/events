@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avelure Event Planning Checklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1B2B;--navy-mid:#1A3148;--cream:#F4F1EA;--cream-alt:#EDE9DF;
+  --white:#FDFCF9;--gold:#B8922A;--gold-lt:#F0E4C4;
+  --ink:#1A1714;--ink-soft:#5A5550;--ink-faint:#C8C2B8;
+  --avelure:#6B63CC;--avelure-dk:#3B3489;--avelure-lt:#ECEAFC;
+  --hmd:#1A8F68;--hmd-dk:#0A4D38;--hmd-lt:#E0F5ED;
+  --overdue:#C0392B;--overdue-lt:#FDEAEA;
+  --complete:#2E7D52;--complete-lt:#E8F5EE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;min-height:100vh}
+
+.site-header{background:#0C1B2B;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:50px;flex-shrink:0;position:sticky;top:0;z-index:200}
+.site-logo{font-family:'Playfair Display',serif;font-size:16px;color:white}
+.site-logo em{color:var(--gold)}
+.header-meta{font-size:11px;color:rgba(255,255,255,0.38);letter-spacing:.04em}
+
+/* TAB NAV */
+.tab-nav{background:#0C1B2B;border-bottom:3px solid var(--avelure);position:sticky;top:50px;z-index:150;padding:0 1.5rem}
+.tab-nav-inner{display:flex;align-items:stretch;overflow-x:auto;scrollbar-width:none;gap:2px}
+.tab-nav-inner::-webkit-scrollbar{display:none}
+.tab-nav-label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,0.32);white-space:nowrap;flex-shrink:0;align-self:center;padding-right:10px;border-right:1px solid rgba(255,255,255,0.1);margin-right:6px}
+
+.tab{display:flex;flex-direction:column;align-items:center;padding:9px 16px 0;cursor:pointer;border:none;background:transparent;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .15s;white-space:nowrap;flex-shrink:0;font-family:'Source Sans 3',sans-serif;min-width:82px;position:relative}
+.tab:hover{background:rgba(255,255,255,0.06)}
+.tab.active{border-bottom-color:var(--avelure);background:rgba(255,255,255,0.07)}
+
+.tab-brand-tag{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;margin-bottom:4px}
+.tab.avelure .tab-brand-tag{background:var(--avelure-lt);color:var(--avelure-dk)}
+.tab.hmd     .tab-brand-tag{background:var(--hmd-lt);color:var(--hmd-dk)}
+.tab.active.avelure .tab-brand-tag{background:var(--avelure);color:white}
+.tab.active.hmd     .tab-brand-tag{background:var(--hmd);color:white}
+
+.tab-name{font-size:12px;font-weight:500;color:rgba(255,255,255,0.52);margin-bottom:6px}
+.tab.active .tab-name{color:white;font-weight:600}
+
+.tab-mini-bar{width:48px;height:2px;background:rgba(255,255,255,0.12);border-radius:1px;overflow:hidden;margin-bottom:7px}
+.tab-mini-fill{height:100%;border-radius:1px;transition:width .4s}
+.tab.avelure .tab-mini-fill{background:#C4BEFF}
+.tab.hmd     .tab-mini-fill{background:#7DDBBA}
+
+.tab-pip{position:absolute;top:7px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--overdue);display:none}
+.tab-pip.show{display:block}
+
+/* CONTENT */
+.content{flex:1;padding:1.5rem 1.5rem 4rem;max-width:880px;margin:0 auto;width:100%}
+.panel{display:none}
+.panel.active{display:block}
+
+/* HERO */
+.hero{border-radius:7px;overflow:hidden;border:1px solid var(--ink-faint);margin-bottom:1.25rem}
+.hero-top{padding:20px 22px 18px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.hero-top.avelure{background:var(--avelure)}
+.hero-top.hmd{background:var(--hmd)}
+.hero-brand{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.58);margin-bottom:4px}
+.hero-loc{font-family:'Playfair Display',serif;font-size:26px;color:white;line-height:1}
+.hero-right{text-align:right;flex-shrink:0}
+.hero-date-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-bottom:3px;font-weight:500}
+.hero-date{font-family:'Playfair Display',serif;font-size:16px;color:white;font-style:italic}
+.hero-prog{background:var(--cream-alt);padding:10px 22px;display:flex;align-items:center;gap:12px}
+.prog-lbl{font-size:11px;color:var(--ink-soft);white-space:nowrap}
+.prog-track{flex:1;height:4px;background:rgba(0,0,0,.08);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;border-radius:2px;transition:width .4s}
+.prog-fill.avelure{background:var(--avelure)}
+.prog-fill.hmd{background:var(--hmd)}
+.prog-pct{font-size:11px;font-weight:600;min-width:32px;text-align:right}
+.prog-pct.avelure{color:var(--avelure-dk)}
+.prog-pct.hmd{color:var(--hmd-dk)}
+
+/* CHECKLIST */
+.cl-wrap{border-radius:6px;overflow:hidden;border:1px solid var(--ink-faint);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cl-head{display:flex;background:#0C1B2B}
+.th{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);padding:8px 10px 8px 0}
+.th-chk{width:46px;min-width:46px;flex-shrink:0;padding:8px 0}
+.th-time{width:108px;min-width:108px;flex-shrink:0}
+.th-who{width:106px;min-width:106px;flex-shrink:0}
+.th-act{flex:1;padding-right:14px}
+
+.row{display:flex;align-items:flex-start;background:var(--white);border-bottom:1px solid var(--cream-alt);cursor:pointer;transition:background .1s}
+.row:last-child{border-bottom:none}
+.row:hover{background:#F8F5EE}
+.row.eday{background:#0C1B2B}
+.row.eday:hover{background:var(--navy-mid)}
+.row.done{background:var(--complete-lt)}
+.row.done:hover{background:#dff0e8}
+.row.od{background:#FFFAF9}
+
+.chk-cell{width:46px;min-width:46px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:13px 0}
+.chk-box{width:17px;height:17px;border-radius:3px;border:1.5px solid var(--ink-faint);background:white;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.row.eday .chk-box{border-color:rgba(255,255,255,.22);background:transparent}
+.row.done .chk-box{background:var(--complete);border-color:var(--complete)}
+
+.c-time{width:108px;min-width:108px;flex-shrink:0;padding:12px 10px 12px 0;font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
+.row.eday .c-time{color:white;font-family:'Playfair Display',serif;font-style:italic}
+.row.done .c-time{color:var(--complete)}
+.dsub{font-size:10px;font-weight:400;margin-top:2px;color:#9A9490}
+.row.eday .dsub{color:rgba(255,255,255,.36)}
+.row.done .dsub{color:var(--complete);opacity:.65}
+
+.c-who{width:106px;min-width:106px;flex-shrink:0;padding:12px 10px 12px 0;font-size:11px;font-weight:500;color:var(--gold)}
+.row.eday .c-who{color:rgba(255,255,255,.5)}
+.row.done .c-who{color:var(--complete);opacity:.75}
+
+.c-act{flex:1;padding:12px 14px 12px 0;font-size:12px;color:var(--ink-soft);line-height:1.5}
+.row.eday .c-act{color:white;font-weight:500}
+.row.done .c-act{color:var(--complete);text-decoration:line-through;text-decoration-color:rgba(46,125,82,.35)}
+
+.od-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--overdue);border:1px solid #F5B8B4;background:var(--overdue-lt);border-radius:2px;padding:1px 5px;margin-left:5px;vertical-align:middle}
+
+.foot-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem;padding-top:1.1rem;border-top:1px solid var(--ink-faint)}
+.nav-btn{font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:500;padding:6px 16px;border-radius:2px;border:1px solid var(--ink-faint);background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .12s;min-width:110px}
+.nav-btn:hover:not(:disabled){border-color:var(--navy);color:var(--navy)}
+.nav-btn:disabled{opacity:.22;cursor:default}
+.nav-btn.r{text-align:right}
+.ev-ctr{font-size:11px;color:var(--ink-soft);text-align:center}
+.ev-ctr strong{color:var(--ink)}
+.reset-lnk{font-size:11px;color:var(--ink-faint);cursor:pointer;text-decoration:underline;text-underline-offset:2px;background:none;border:none;font-family:inherit;margin-top:5px;display:block;text-align:center}
+.reset-lnk:hover{color:var(--overdue)}
+
+
+.url-row{background:var(--gold-lt);border-bottom:1px solid #E8D9A8;border-top:1px solid #E8D9A8;margin-top:-1px}
+.url-row-inner{display:flex;align-items:center;gap:16px;padding:10px 14px 10px 46px;flex-wrap:wrap}
+.url-label{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:.02em;display:flex;align-items:center;gap:5px;white-space:nowrap;min-width:120px}
+.url-input-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:220px}
+.url-input{flex:1;font-family:'Source Sans 3',sans-serif;font-size:12px;padding:7px 11px;border:1px solid #D4C08A;border-radius:3px;background:white;color:var(--ink);outline:none;transition:border-color .15s}
+.url-input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(184,146,42,0.15)}
+.url-input::placeholder{color:var(--ink-faint)}
+.url-visit{font-size:11px;font-weight:600;color:var(--gold);text-decoration:none;white-space:nowrap;padding:6px 12px;border:1px solid var(--gold);border-radius:3px;transition:all .15s}
+.url-visit:hover{background:var(--gold);color:white}
+.url-visit-hidden{visibility:hidden}
+
+@media(max-width:600px){
+  .c-who,.th-who{display:none}
+  .hero-top{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-logo">Avelure <em>Events</em></div>
+  <div class="header-meta" style="color:rgba(197,188,255,0.7)">90-Day SOP Checklist · Spring 2026</div>
+</header>
+
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <div class="tab-nav-label">Select location</div>
+    <div id="tabs" style="display:flex;gap:2px"></div>
+  </div>
+</nav>
+
+<div class="content" id="content"></div>
+
+<script>
+const EVENTS=[
+  {id:"ocala",       label:"Ocala",          brand:"avelure",date:"2026-04-24",time:"5–7 PM ET"},
+  {id:"ofallon",     label:"O'Fallon",       brand:"avelure",date:"2026-05-08",time:""},
+  {id:"crevecoeur",  label:"Creve Coeur",    brand:"avelure",date:"2026-05-14",time:""},
+  {id:"zonarosa",    label:"Zona Rosa",      brand:"avelure",date:"2026-05-14",time:""},
+  {id:"waterford",   label:"Waterford",      brand:"avelure",date:"2026-05-15",time:"5–7 PM ET"},
+  {id:"sunsethills", label:"Sunset Hills",   brand:"avelure",date:"2026-05-15",time:""},
+  {id:"indy",        label:"Indy",           brand:"avelure",date:"2026-05-21",time:"2–6 PM"},
+  {id:"greenwood",   label:"Greenwood",      brand:"avelure",date:"2026-05-21",time:""},
+];
+const SOP=[
+  {key:"d90",days:90, who:"Practice",      short:"90 Days Out",   action:"Submit request via #amp-marketing-requests in Slack. Confirm event date, type, concept. Begin selecting specials."},
+  {key:"d75",days:75, who:"Practice + AMP",short:"75 Days Out",   action:"Finalize specials & pricing. Confirm vendor reps. Set revenue and attendance targets."},
+  {key:"d60",days:60, who:"AMP Marketing", short:"60 Days Out",   action:"AMP builds event webpage, RSVP form, Zenoti packages. Together begins creative design.", hasUrlField:true},
+  {key:"d45",days:45, who:"Practice + AMP",short:"45 Days Out",   action:"Organic social promotion begins. In-office signage live. Email & SMS sequences scheduled."},
+  {key:"d30",days:30, who:"Practice",      short:"30 Days Out",   action:"Confirm catering and logistics. Review staffing plan. Provider social calendar starts."},
+  {key:"d21",days:21, who:"AMP Marketing", short:"21 Days Out",   action:"All print approved and sent to production. Final review of specials and online store. Zenoti packages tested."},
+  {key:"d14",days:14, who:"AMP Marketing", short:"14 Days Out",   action:"Paid ads launch. Ramp social posting frequency. Second email/SMS push begins."},
+  {key:"d7", days:7,  who:"Practice + AMP",short:"7 Days Out",    action:"Final RSVP push. Confirm all logistics, staffing, vendor arrivals. Staff training briefing held."},
+  {key:"d2", days:2,  who:"Practice",      short:"2 Days Out",    action:"Confirm attendance. Personal outreach to VIP clients. Pre-selling begins for top patients."},
+  {key:"d0", days:0,  who:"All Hands",     short:"Event Day",     action:"Execute per Day-of Checklist. Track sales in real time via Zenoti. Capture all content."},
+  {key:"a1", days:-1, who:"Practice + AMP",short:"Within 24 Hrs", action:"Thank-you email/text sent. Recap content posted. Online store extended with sale messaging."},
+  {key:"a3", days:-3, who:"Practice",      short:"48–72 Hours",   action:"Close extended sale. Follow up with leads who consulted but didn't purchase. Retarget no-shows."},
+  {key:"a7", days:-7, who:"Practice + AMP",short:"Within 1 Week", action:"Submit post-event report to AMP Marketing. Team debrief. Book follow-up appointments."},
+];
+const today=new Date(2026,2,25);
+const MNAMES=['','January','February','March','April','May','June','July'];
+const DNAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function addD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
+function fmtD(d){return MNAMES[d.getMonth()+1]+' '+d.getDate()+', '+d.getFullYear()}
+function fmtE(d){return DNAMES[d.getDay()]+', '+MNAMES[d.getMonth()+1]+' '+d.getDate()}
+function tKey(eId,sKey){return `amp_${eId}_${sKey}`}
+function isChk(eId,sKey){return localStorage.getItem(tKey(eId,sKey))==='1'}
+function setChk(eId,sKey,v){localStorage.setItem(tKey(eId,sKey),v?'1':'0')}
+function ms(ev,s){return s.days>=0?addD(parseD(ev.date),-s.days):addD(parseD(ev.date),Math.abs(s.days))}
+function doneCnt(ev){return SOP.filter(s=>isChk(ev.id,s.key)).length}
+function hasOD(ev){return SOP.some(s=>{const md=ms(ev,s);return md<today&&s.days!==0&&!isChk(ev.id,s.key)})}
+const SVG=`<svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+let activeIdx=0;
+function goTab(idx){
+  activeIdx=idx;
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  document.querySelectorAll('.panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab')[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggle(eId,sKey){
+  setChk(eId,sKey,!isChk(eId,sKey));
+  refreshRow(eId,sKey);refreshHero(eId);refreshTabMeta(eId);
+}
+function refreshRow(eId,sKey){
+  const ev=EVENTS.find(e=>e.id===eId),s=SOP.find(x=>x.key===sKey);
+  const row=document.getElementById(`r-${eId}-${sKey}`);if(!row)return;
+  const chk=isChk(eId,sKey),md=ms(ev,s),isED=s.days===0,isOD=md<today&&!isED&&!chk;
+  row.className='row'+(isED?' eday':chk?' done':isOD?' od':'');
+  row.querySelector('.chk-box').innerHTML=chk?SVG:'';
+}
+function refreshHero(eId){
+  const ev=EVENTS.find(e=>e.id===eId),done=doneCnt(ev),pct=Math.round(done/SOP.length*100);
+  const f=document.getElementById(`pf-${eId}`),p=document.getElementById(`pp-${eId}`),l=document.getElementById(`pl-${eId}`);
+  if(f)f.style.width=pct+'%';if(p)p.textContent=pct+'%';if(l)l.textContent=`${done} of ${SOP.length} milestones complete`;
+}
+function refreshTabMeta(eId){
+  const ev=EVENTS.find(e=>e.id===eId),done=doneCnt(ev),pct=Math.round(done/SOP.length*100);
+  const f=document.getElementById(`tf-${eId}`),pip=document.getElementById(`pip-${eId}`);
+  if(f)f.style.width=pct+'%';if(pip)pip.classList.toggle('show',hasOD(ev));
+}
+function resetEv(eId){
+  if(!confirm('Reset all checkboxes for this event?'))return;
+  SOP.forEach(s=>localStorage.removeItem(tKey(eId,s.key)));
+  SOP.forEach(s=>refreshRow(eId,s.key));
+  refreshHero(eId);refreshTabMeta(eId);
+}
+
+const tabsEl=document.getElementById('tabs');
+EVENTS.forEach((ev,i)=>{
+  const done=doneCnt(ev),pct=Math.round(done/SOP.length*100),bn=ev.brand==='avelure'?'Avelure':'H-MD';
+  const t=document.createElement('button');
+  t.className=`tab ${ev.brand}${i===0?' active':''}`;
+  t.onclick=()=>goTab(i);
+  t.innerHTML=`<div class="tab-pip${hasOD(ev)?' show':''}" id="pip-${ev.id}"></div>
+    <div class="tab-brand-tag">${bn}</div>
+    <div class="tab-name">${ev.label}</div>
+    <div class="tab-mini-bar"><div class="tab-mini-fill" id="tf-${ev.id}" style="width:${pct}%"></div></div>`;
+  tabsEl.appendChild(t);
+});
+
+const contentEl=document.getElementById('content');
+EVENTS.forEach((ev,i)=>{
+  const edate=parseD(ev.date),bn=ev.brand==='avelure'?'Avelure':'H-MD';
+  const dateStr=fmtE(edate)+(ev.time?' · '+ev.time:'');
+  const done=doneCnt(ev),pct=Math.round(done/SOP.length*100);
+  let rows='';
+  SOP.forEach(s=>{
+    const md=ms(ev,s),isED=s.days===0,chk=isChk(ev.id,s.key),isOD=md<today&&!isED&&!chk;
+    const rc='row'+(isED?' eday':chk?' done':isOD?' od':'');
+    const badge=isOD?`<span class="od-badge">Overdue</span>`:'';
+    rows+=`<div class="${rc}" id="r-${ev.id}-${s.key}" onclick="toggle('${ev.id}','${s.key}')">
+      <div class="chk-cell"><div class="chk-box">${chk?SVG:''}</div></div>
+      <div class="c-time">${s.short}${badge}<div class="dsub">${fmtD(md)}</div></div>
+      <div class="c-who">${s.who}</div>
+      <div class="c-act">${s.action}</div>
+    </div>`;
+    if(s.hasUrlField){
+      const savedUrl=localStorage.getItem('amp_url_'+ev.id)||'';
+      const hasUrl=savedUrl.length>0;
+      rows+=`<div class="url-row" id="url-row-${ev.id}">
+        <div class="url-row-inner">
+          <div class="url-label">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5.5 7.5a3 3 0 004.243 0l1.5-1.5a3 3 0 00-4.243-4.243L6 2.757" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M7.5 5.5a3 3 0 00-4.243 0l-1.5 1.5a3 3 0 004.243 4.243L7 10.243" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            Landing page URL
+          </div>
+          <div class="url-input-wrap">
+            <input class="url-input" id="url-input-${ev.id}" type="url" placeholder="https://..." value="${savedUrl}" onclick="event.stopPropagation()" oninput="saveUrl('${ev.id}',this.value)" />
+            <a class="url-visit${hasUrl?'':' url-visit-hidden'}" id="url-visit-${ev.id}" href="${savedUrl||'#'}" target="_blank" onclick="event.stopPropagation()">Visit ↗</a>
+          </div>
+        </div>
+      </div>`;
+    }
+  });
+  const prev=EVENTS[i-1],next=EVENTS[i+1];
+  const p=document.createElement('div');
+  p.className=`panel${i===0?' active':''}`;
+  p.innerHTML=`<div class="hero">
+    <div class="hero-top ${ev.brand}">
+      <div><div class="hero-brand">${bn}</div><div class="hero-loc">${ev.label}</div></div>
+      <div class="hero-right"><div class="hero-date-lbl">Event date</div><div class="hero-date">${dateStr}</div></div>
+    </div>
+    <div class="hero-prog">
+      <span class="prog-lbl" id="pl-${ev.id}">${done} of ${SOP.length} milestones complete</span>
+      <div class="prog-track"><div class="prog-fill ${ev.brand}" id="pf-${ev.id}" style="width:${pct}%"></div></div>
+      <span class="prog-pct ${ev.brand}" id="pp-${ev.id}">${pct}%</span>
+    </div>
+  </div>
+  <div class="cl-wrap">
+    <div class="cl-head">
+      <div class="th th-chk"></div>
+      <div class="th th-time">Timeline</div>
+      <div class="th th-who">Who</div>
+      <div class="th th-act">Key Actions</div>
+    </div>${rows}
+  </div>
+  <div class="foot-nav">
+    <button class="nav-btn" ${!prev?'disabled':''} onclick="goTab(${i-1})">${prev?'← '+prev.label:''}</button>
+    <div><div class="ev-ctr"><strong>${i+1}</strong> of ${EVENTS.length}</div><button class="reset-lnk" onclick="resetEv('${ev.id}')">Reset this event</button></div>
+    <button class="nav-btn r" ${!next?'disabled':''} onclick="goTab(${i+1})">${next?next.label+' →':''}</button>
+  </div>`;
+  contentEl.appendChild(p);
+});
+
+function saveUrl(eId,val){
+  const key='amp_url_'+eId;
+  if(val.trim()) localStorage.setItem(key,val.trim());
+  else localStorage.removeItem(key);
+  const link=document.getElementById('url-visit-'+eId);
+  if(link){
+    if(val.trim()){link.href=val.trim();link.classList.remove('url-visit-hidden');}
+    else{link.href='#';link.classList.add('url-visit-hidden');}
+  }
+}
+
+</script>
+</body>
+</html>

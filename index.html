@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMP Event Planning Checklists</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0C1B2B;--cream:#F4F1EA;--gold:#B8922A;--gold-lt:#F0E4C4;
+  --ink:#1A1714;--ink-soft:#5A5550;--ink-faint:#C8C2B8;
+  --avelure:#6B63CC;--avelure-lt:#ECEAFC;--avelure-dk:#3B3489;
+  --hmd:#1A8F68;--hmd-lt:#E0F5ED;--hmd-dk:#0A4D38;--cream-alt:#EDE9DF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(--cream);color:var(--ink)}
+.site-header{background:#0C1B2B;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+.site-logo{font-family:'Playfair Display',serif;font-size:17px;color:white}
+.site-logo em{color:var(--gold)}
+.header-meta{font-size:11px;color:rgba(255,255,255,0.38);letter-spacing:.04em}
+.hero{padding:3rem 2rem 1.5rem;max-width:640px;margin:0 auto;text-align:center}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.hero-title{font-family:'Playfair Display',serif;font-size:34px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:10px}
+.hero-sub{font-size:14px;font-weight:300;color:var(--ink-soft);line-height:1.6}
+.gold-rule{width:36px;height:2px;background:var(--gold);margin:16px auto 0}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:640px;margin:2.5rem auto 0;padding:0 2rem}
+.brand-card{border-radius:8px;overflow:hidden;border:1px solid var(--ink-faint);text-decoration:none;display:block;transition:transform .15s,box-shadow .15s}
+.brand-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.1)}
+.card-top{padding:28px 24px 24px}
+.card-top.avelure{background:#0C1B2B}
+.card-top.hmd{background:#A4B4B8}
+.card-brand{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+.card-name{font-family:'Playfair Display',serif;font-size:26px;color:white;line-height:1;margin-bottom:12px}
+.card-count{display:inline-block;font-size:11px;font-weight:500;padding:3px 10px;border-radius:2px;color:white;border:1px solid rgba(255,255,255,0.35);background:rgba(255,255,255,0.12)}
+.card-bottom{background:white;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.card-desc{font-size:12px;color:var(--ink-soft);line-height:1.5}
+.card-arrow{font-size:18px;color:var(--ink-faint);flex-shrink:0;margin-left:12px;transition:color .15s}
+.brand-card:hover .card-arrow{color:var(--ink)}
+.loc-list{margin-top:10px;display:flex;flex-direction:column;gap:0}
+.loc-item{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid var(--cream-alt)}
+.loc-item:last-child{border-bottom:none}
+.loc-name{font-size:12px;font-weight:500;color:var(--ink)}
+.loc-date{font-size:11px;color:var(--ink-soft);white-space:nowrap;font-weight:300}
+.loc-date.avelure{color:var(--avelure-dk)}
+.loc-date.hmd{color:var(--hmd-dk)}
+.days-away{font-size:10px;font-weight:400;color:var(--ink-faint);margin-top:1px;display:block;text-align:right}
+.days-away.soon{color:#C0392B;font-weight:500}
+.days-away.near{color:var(--gold);font-weight:500}
+.card-desc{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:2px}
+
+.card-stats{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--cream-alt)}
+.stat-badge{flex:1;text-align:center;padding:8px 6px;border-radius:4px}
+.stat-badge.overdue{background:#FEF0F0;border:1px solid #F5B8B4}
+.stat-badge.upcoming{background:var(--cream-alt);border:1px solid var(--ink-faint)}
+.stat-badge.complete{background:#E8F5EE;border:1px solid #A8D9BC}
+.stat-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;line-height:1;display:block}
+.stat-num.overdue{color:#C0392B}
+.stat-num.upcoming{color:var(--ink-soft)}
+.stat-num.complete{color:#2E7D52}
+.stat-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:3px}
+.stat-lbl.overdue{color:#C0392B;opacity:.7}
+.stat-lbl.upcoming{color:var(--ink-faint)}
+.stat-lbl.complete{color:#2E7D52;opacity:.7}
+.loc-dots{display:flex;gap:4px;align-items:center}
+.loc-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.loc-dot.overdue{background:#C0392B}
+.loc-dot.upcoming{background:var(--ink-faint)}
+.loc-dot.complete{background:#2E7D52}
+
+.footer{text-align:center;padding:2.5rem 2rem;font-size:11px;color:var(--ink-faint)}
+.footer strong{color:var(--gold)}
+@media(max-width:520px){.cards{grid-template-columns:1fr;padding:0 1.25rem}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="site-logo">AMP <em>Events</em></div>
+  <div class="header-meta">90-Day SOP Checklists · Spring 2026</div>
+</header>
+<div class="hero">
+  <div class="eyebrow">When to do what</div>
+  <div class="hero-title">Event Planning Checklists</div>
+  <div class="hero-sub">Select a brand below to open its 90-day SOP checklist. Progress saves automatically in your browser.</div>
+  <div class="gold-rule"></div>
+</div>
+<div class="cards">
+  <a class="brand-card" href="avelure.html">
+    <div class="card-top avelure">
+      <div class="card-brand">Brand</div>
+      <div class="card-name">Avelure</div>
+      <div class="card-count">8 locations</div>
+    </div>
+    <div class="card-bottom" style="flex-direction:column;align-items:stretch;gap:0">
+      <div class="card-desc">Spring 2026 grand openings</div>
+      <div class="loc-list">
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Ocala</span>
+            <div id="status-ocala" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-ocala" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-ocala" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-ocala"></div>
+            <div style="text-align:right"><span class="loc-date avelure">April 24</span><span class="days-away" id="days-ocala"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">O'Fallon</span>
+            <div id="status-ofallon" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-ofallon" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-ofallon" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-ofallon"></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 8</span><span class="days-away" id="days-ofallon"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Creve Coeur</span>
+            <div id="status-crevecoeur" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-crevecoeur" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-crevecoeur" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-crevecoeur"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-zonarosa"></span></div><span class="days-away" id="days-crevecoeur"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Zona Rosa</span>
+            <div id="status-zonarosa" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-zonarosa" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-zonarosa" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-zonarosa"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-zonarosa"></span></div><span class="days-away" id="days-crevecoeur"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Waterford</span>
+            <div id="status-waterford" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-waterford" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-waterford" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-waterford"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-sunsethills"></span></div><span class="days-away" id="days-waterford"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Sunset Hills</span>
+            <div id="status-sunsethills" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-sunsethills" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-sunsethills" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-sunsethills"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-sunsethills"></span></div><span class="days-away" id="days-waterford"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Indy</span>
+            <div id="status-indy" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-indy" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-indy" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-indy"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-greenwood"></span></div><span class="days-away" id="days-indy"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Greenwood</span>
+            <div id="status-greenwood" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-greenwood" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-greenwood" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-greenwood"></div>
+            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-greenwood"></span></div><span class="days-away" id="days-indy"></span></div>
+          </div>
+        </div>
+      </div>
+      <div id="stats-avelure" class="card-stats"></div>
+      <div style="text-align:right;padding-top:8px;font-size:18px;color:var(--ink-faint)">→</div>
+    </div>
+  </a>
+  <a class="brand-card" href="hmd.html">
+    <div class="card-top hmd">
+      <div class="card-brand" style="color:rgba(0,0,0,0.5)">Brand</div>
+      <div class="card-name" style="color:#0C1B2B">H-MD</div>
+      <div class="card-count" style="color:#0C1B2B;border-color:rgba(0,0,0,0.2);background:rgba(0,0,0,0.08)">3 locations</div>
+    </div>
+    <div class="card-bottom" style="flex-direction:column;align-items:stretch;gap:0">
+      <div class="card-desc">Spring 2026 grand openings</div>
+      <div class="loc-list">
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">OKC Original</span>
+            <div id="status-okc" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-okc" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-okc" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-okc"></div>
+            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Chisholm Creek</span>
+            <div id="status-chisholm" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-chisholm" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-chisholm" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-chisholm"></div>
+            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+          </div>
+        </div>
+        <div class="loc-item">
+          <div>
+            <span class="loc-name">Tulsa</span>
+            <div id="status-tulsa" style="display:flex;gap:6px;margin-top:3px">
+              <span id="od-tulsa" style="font-size:10px;color:#C0392B;font-weight:500"></span>
+              <span id="up-tulsa" style="font-size:10px;color:var(--ink-faint);font-weight:400"></span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="loc-dots" id="dots-tulsa"></div>
+            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+          </div>
+        </div>
+      </div>
+      <div id="stats-hmd" class="card-stats"></div>
+      <div style="text-align:right;padding-top:8px;font-size:18px;color:var(--ink-faint)">→</div>
+    </div>
+  </a>
+</div>
+<div class="footer">Today is <strong>Wednesday, March 25, 2026</strong> &nbsp;·&nbsp; AMP 90-Day SOP</div>
+
+<script>
+const SOP_DAYS=[90,75,60,45,30,21,14,7,2,0,-1,-3,-7];
+const TODAY=new Date(2026,2,25);
+function addD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
+function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function isChk(eId,days){return localStorage.getItem('amp_'+eId+'_d'+days)==='1'||localStorage.getItem('amp_'+eId+'_a'+Math.abs(days))==='1'}
+
+const KEYS={
+  d90:'d90',d75:'d75',d60:'d60',d45:'d45',d30:'d30',d21:'d21',d14:'d14',d7:'d7',d2:'d2',d0:'d0',
+  a1:'a1',a3:'a3',a7:'a7'
+};
+const SOP_KEYS=['d90','d75','d60','d45','d30','d21','d14','d7','d2','d0','a1','a3','a7'];
+const SOP_D={d90:90,d75:75,d60:60,d45:45,d30:30,d21:21,d14:14,d7:7,d2:2,d0:0,a1:-1,a3:-3,a7:-7};
+
+function ms(edate,days){return days>=0?addD(edate,-days):addD(edate,Math.abs(days))}
+function isChecked(eId,sKey){return localStorage.getItem('amp_'+eId+'_'+sKey)==='1'}
+
+const ALL_EVENTS=[
+  {id:'ocala',      date:'2026-04-24',brand:'avelure'},
+  {id:'ofallon',    date:'2026-05-08',brand:'avelure'},
+  {id:'crevecoeur', date:'2026-05-14',brand:'avelure'},
+  {id:'zonarosa',   date:'2026-05-14',brand:'avelure'},
+  {id:'waterford',  date:'2026-05-15',brand:'avelure'},
+  {id:'sunsethills',date:'2026-05-15',brand:'avelure'},
+  {id:'indy',       date:'2026-05-21',brand:'avelure'},
+  {id:'greenwood',  date:'2026-05-21',brand:'avelure'},
+  {id:'okc',        date:'2026-05-07',brand:'hmd'},
+  {id:'chisholm',   date:'2026-05-07',brand:'hmd'},
+  {id:'tulsa',      date:'2026-05-07',brand:'hmd'},
+];
+
+function getCounts(evId, dateStr){
+  const edate=parseD(dateStr);
+  let od=0,up=0,done=0;
+  SOP_KEYS.forEach(key=>{
+    const days=SOP_D[key];
+    const md=ms(edate,days);
+    const chk=isChecked(evId,key);
+    if(chk){ done++; return; }
+    if(days!==0 && md<TODAY) od++;
+    else up++;
+  });
+  return {od,up,done};
+}
+
+function getBrandCounts(brand){
+  let od=0,up=0,done=0;
+  ALL_EVENTS.filter(e=>e.brand===brand).forEach(e=>{
+    const c=getCounts(e.id,e.date);
+    od+=c.od; up+=c.up; done+=c.done;
+  });
+  return {od,up,done};
+}
+
+// Update brand-level stat badges
+['avelure','hmd'].forEach(brand=>{
+  const {od,up,done}=getBrandCounts(brand);
+  const el=document.getElementById('stats-'+brand);
+  if(!el) return;
+  el.innerHTML=`
+    <div class="stat-badge overdue"><span class="stat-num overdue">${od}</span><span class="stat-lbl overdue">Overdue</span></div>
+    <div class="stat-badge upcoming"><span class="stat-num upcoming">${up}</span><span class="stat-lbl upcoming">Upcoming</span></div>
+    <div class="stat-badge complete"><span class="stat-num complete">${done}</span><span class="stat-lbl complete">Complete</span></div>
+  `;
+});
+
+// Update per-location dots
+ALL_EVENTS.forEach(e=>{
+  const {od,up,done}=getCounts(e.id,e.date);
+  const el=document.getElementById('dots-'+e.id);
+  if(!el) return;
+  let dots='';
+  if(od>0) dots+=`<span class="loc-dot overdue" title="${od} overdue"></span>`;
+  if(up>0) dots+=`<span class="loc-dot upcoming" title="${up} upcoming"></span>`;
+  if(done>0) dots+=`<span class="loc-dot complete" title="${done} complete"></span>`;
+  el.innerHTML=dots;
+  // update counts
+  const odEl=document.getElementById('od-'+e.id);
+  const upEl=document.getElementById('up-'+e.id);
+  if(odEl) odEl.textContent=od>0?od+' overdue':'';
+  if(upEl) upEl.textContent=up>0?up+' upcoming':'';
+});
+</script>
+
+</body>
+</html>
