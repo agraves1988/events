@@ -73,6 +73,19 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
 </style>
 </head>
 <body>
+  <script>
+  const PASSWORD = "amp_events";
+
+  const entered = sessionStorage.getItem("auth");
+  if (entered !== PASSWORD) {
+    const attempt = prompt("Enter password to access this site:");
+    if (attempt === PASSWORD) {
+      sessionStorage.setItem("auth", attempt);
+    } else {
+      document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access Denied</h2>";
+    }
+  }
+</script>
 <header class="site-header">
   <div class="site-logo">AMP <em>Events</em></div>
   <div class="header-meta">90-Day SOP Checklists · Spring 2026</div>
