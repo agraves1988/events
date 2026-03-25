@@ -6,6 +6,44 @@
 <title>AMP Event Planning Checklists</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ── LOGIN OVERLAY ── */
+#login-overlay {
+  position: fixed; inset: 0;
+  background: #0f0f0f;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.login-card {
+  background: #1a1a1a; border: 0.5px solid #333;
+  border-radius: 16px; padding: 2.5rem 2rem;
+  width: 100%; max-width: 380px;
+}
+.login-logo {
+  width: 80px; height: 80px;
+  margin: 0 auto 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.login-logo img { width: 80px; height: 80px; object-fit: contain; }
+.login-card h2 { text-align: center; color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 0.4rem; font-family: 'Playfair Display', serif; }
+.login-subtitle { text-align: center; color: #888; font-size: 14px; margin-bottom: 2rem; }
+.login-card label { display: block; font-size: 13px; color: #aaa; margin-bottom: 6px; }
+.login-card input[type="password"] {
+  width: 100%; background: #0f0f0f; border: 0.5px solid #444;
+  border-radius: 8px; padding: 10px 14px; color: #fff;
+  font-size: 15px; outline: none; margin-bottom: 1.25rem;
+  transition: border-color 0.2s; font-family: inherit;
+}
+.login-card input[type="password"]:focus { border-color: #666; }
+.login-card button {
+  width: 100%; background: #fff; color: #0f0f0f;
+  border: none; border-radius: 8px; padding: 11px;
+  font-size: 15px; font-weight: 500; cursor: pointer;
+  transition: opacity 0.2s; font-family: inherit;
+}
+.login-card button:hover { opacity: 0.88; }
+.login-error { color: #f55; font-size: 13px; text-align: center; margin-top: 0.75rem; min-height: 18px; }
+
+/* ── MAIN SITE ── */
 :root{
   --navy:#0C1B2B;--cream:#F4F1EA;--gold:#B8922A;--gold-lt:#F0E4C4;
   --ink:#1A1714;--ink-soft:#5A5550;--ink-faint:#C8C2B8;
@@ -47,7 +85,6 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
 .days-away.soon{color:#C0392B;font-weight:500}
 .days-away.near{color:var(--gold);font-weight:500}
 .card-desc{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:2px}
-
 .card-stats{display:flex;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--cream-alt)}
 .stat-badge{flex:1;text-align:center;padding:8px 6px;border-radius:4px}
 .stat-badge.overdue{background:#FEF0F0;border:1px solid #F5B8B4}
@@ -66,26 +103,49 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
 .loc-dot.overdue{background:#C0392B}
 .loc-dot.upcoming{background:var(--ink-faint)}
 .loc-dot.complete{background:#2E7D52}
-
 .footer{text-align:center;padding:2.5rem 2rem;font-size:11px;color:var(--ink-faint)}
 .footer strong{color:var(--gold)}
 @media(max-width:520px){.cards{grid-template-columns:1fr;padding:0 1.25rem}}
 </style>
 </head>
 <body>
-  <script>
-  const PASSWORD = "amp_events";
 
-  const entered = sessionStorage.getItem("auth");
-  if (entered !== PASSWORD) {
-    const attempt = prompt("Enter password to access this site:");
-    if (attempt === PASSWORD) {
-      sessionStorage.setItem("auth", attempt);
+<!-- ── LOGIN OVERLAY ── -->
+<div id="login-overlay">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="amp-logo.png" alt="AMP" />
+    </div>
+    <h2>Welcome back</h2>
+    <p class="login-subtitle">Enter the password to continue</p>
+    <label>Password</label>
+    <input type="password" id="pw" placeholder="••••••••" />
+    <button onclick="checkPw()">Enter</button>
+    <p class="login-error" id="login-err"></p>
+  </div>
+</div>
+
+<script>
+  const PASSWORD = "yourpassword";
+  function checkPw() {
+    if (document.getElementById("pw").value === PASSWORD) {
+      sessionStorage.setItem("amp_auth", PASSWORD);
+      document.getElementById("login-overlay").remove();
     } else {
-      document.body.innerHTML = "<h2 style='text-align:center;margin-top:100px;'>Access Denied</h2>";
+      document.getElementById("login-err").textContent = "Incorrect password. Try again.";
+      document.getElementById("pw").value = "";
+      document.getElementById("pw").focus();
     }
   }
+  document.getElementById("pw").addEventListener("keydown", e => {
+    if (e.key === "Enter") checkPw();
+  });
+  if (sessionStorage.getItem("amp_auth") === PASSWORD) {
+    document.getElementById("login-overlay").remove();
+  }
 </script>
+
+<!-- ── MAIN SITE ── -->
 <header class="site-header">
   <div class="site-logo">AMP <em>Events</em></div>
   <div class="header-meta">90-Day SOP Checklists · Spring 2026</div>
@@ -142,7 +202,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-crevecoeur"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-zonarosa"></span></div><span class="days-away" id="days-crevecoeur"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-crevecoeur"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -155,7 +215,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-zonarosa"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-zonarosa"></span></div><span class="days-away" id="days-crevecoeur"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 14</span><span class="days-away" id="days-zonarosa"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -168,7 +228,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-waterford"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-sunsethills"></span></div><span class="days-away" id="days-waterford"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-waterford"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -181,7 +241,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-sunsethills"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-sunsethills"></span></div><span class="days-away" id="days-waterford"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 15</span><span class="days-away" id="days-sunsethills"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -194,7 +254,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-indy"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-greenwood"></span></div><span class="days-away" id="days-indy"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-indy"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -207,7 +267,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-greenwood"></div>
-            <div style="text-align:right"><div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-greenwood"></span></div><span class="days-away" id="days-indy"></span></div>
+            <div style="text-align:right"><span class="loc-date avelure">May 21</span><span class="days-away" id="days-greenwood"></span></div>
           </div>
         </div>
       </div>
@@ -234,7 +294,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-okc"></div>
-            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+            <div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-okc"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -247,7 +307,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-chisholm"></div>
-            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+            <div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-chisholm"></span></div>
           </div>
         </div>
         <div class="loc-item">
@@ -260,7 +320,7 @@ html,body{min-height:100%;font-family:'Source Sans 3',sans-serif;background:var(
           </div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="loc-dots" id="dots-tulsa"></div>
-            <div style="text-align:right"><div style="text-align:right"><div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div><span class="days-away" id="days-chisholm"></span></div><span class="days-away" id="days-okc"></span></div>
+            <div style="text-align:right"><span class="loc-date hmd">May 7</span><span class="days-away" id="days-tulsa"></span></div>
           </div>
         </div>
       </div>
@@ -278,10 +338,6 @@ function addD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function isChk(eId,days){return localStorage.getItem('amp_'+eId+'_d'+days)==='1'||localStorage.getItem('amp_'+eId+'_a'+Math.abs(days))==='1'}
 
-const KEYS={
-  d90:'d90',d75:'d75',d60:'d60',d45:'d45',d30:'d30',d21:'d21',d14:'d14',d7:'d7',d2:'d2',d0:'d0',
-  a1:'a1',a3:'a3',a7:'a7'
-};
 const SOP_KEYS=['d90','d75','d60','d45','d30','d21','d14','d7','d2','d0','a1','a3','a7'];
 const SOP_D={d90:90,d75:75,d60:60,d45:45,d30:30,d21:21,d14:14,d7:7,d2:2,d0:0,a1:-1,a3:-3,a7:-7};
 
@@ -325,7 +381,6 @@ function getBrandCounts(brand){
   return {od,up,done};
 }
 
-// Update brand-level stat badges
 ['avelure','hmd'].forEach(brand=>{
   const {od,up,done}=getBrandCounts(brand);
   const el=document.getElementById('stats-'+brand);
@@ -337,23 +392,32 @@ function getBrandCounts(brand){
   `;
 });
 
-// Update per-location dots
 ALL_EVENTS.forEach(e=>{
   const {od,up,done}=getCounts(e.id,e.date);
-  const el=document.getElementById('dots-'+e.id);
-  if(!el) return;
-  let dots='';
-  if(od>0) dots+=`<span class="loc-dot overdue" title="${od} overdue"></span>`;
-  if(up>0) dots+=`<span class="loc-dot upcoming" title="${up} upcoming"></span>`;
-  if(done>0) dots+=`<span class="loc-dot complete" title="${done} complete"></span>`;
-  el.innerHTML=dots;
-  // update counts
-  const odEl=document.getElementById('od-'+e.id);
-  const upEl=document.getElementById('up-'+e.id);
-  if(odEl) odEl.textContent=od>0?od+' overdue':'';
-  if(upEl) upEl.textContent=up>0?up+' upcoming':'';
+  const dotsEl=document.getElementById('dots-'+e.id);
+  if(dotsEl){
+    let html='';
+    if(od>0) html+=`<span class="loc-dot overdue" title="${od} overdue"></span>`;
+    if(up>0) html+=`<span class="loc-dot upcoming" title="${up} upcoming"></span>`;
+    if(done>0) html+=`<span class="loc-dot complete" title="${done} complete"></span>`;
+    dotsEl.innerHTML=html;
+  }
+  const daysEl=document.getElementById('days-'+e.id);
+  if(daysEl){
+    const edate=parseD(e.date);
+    const diff=Math.round((edate-TODAY)/(1000*60*60*24));
+    if(diff>0){
+      daysEl.textContent=diff+' days away';
+      daysEl.className='days-away'+(diff<=14?' soon':diff<=30?' near':'');
+    } else if(diff===0){
+      daysEl.textContent='Today!';
+      daysEl.className='days-away soon';
+    } else {
+      daysEl.textContent=Math.abs(diff)+' days ago';
+      daysEl.className='days-away';
+    }
+  }
 });
 </script>
-
 </body>
 </html>
